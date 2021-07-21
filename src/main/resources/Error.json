@@ -1,0 +1,8 @@
+{
+	"responseCode": "0001",
+	"responseMsg": "Failure",
+	"body": null,
+	"errorDesc": {
+		"errorDesc": "Technical error occurred, please try after sometime."
+	}
+}
