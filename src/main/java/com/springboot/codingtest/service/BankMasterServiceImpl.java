@@ -52,11 +52,7 @@ public class BankMasterServiceImpl implements BankMasterService {
 		ApplicationResponse appResp;
 		String response = null;
 		String cityName = request.getCityName();
-		if (cityName == null || cityName.isEmpty()) {
-			return CommonUtility.getFailureResponse(AppConstants.SERVICE_CALL_ERROR, AppConstants.INVALID_REQUEST);
-		}
 		response = restclient.getService(atmURL);
-
 		if (response.equals(AppConstants.ERROR)) {
 			appResp = CommonUtility.getFailureResponse(AppConstants.SERVICE_CALL_ERROR, response);
 		} else {
