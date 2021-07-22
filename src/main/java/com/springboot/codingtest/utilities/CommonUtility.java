@@ -1,9 +1,5 @@
 package com.springboot.codingtest.utilities;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +32,6 @@ public class CommonUtility {
 
 		} catch (JsonProcessingException e) {
 			logger.error("JsonProcessingException inside parseATMResponse");
-			// Log Exception as Response has been modified
 			return getMessageAsNode(AppConstants.TECHNICAL_MSG, null);
 		}
 		return node;
@@ -65,15 +60,27 @@ public class CommonUtility {
 				node = mapper.readTree(builder.toString());
 			}
 		} catch (JsonProcessingException e) {
-			// Need to log the Exception
+			logger.error("JsonProcessingException inside getMessageAsNode");
 		}
 		return node;
 	}
 
-	
-	public static String findValueFromNode(JsonNode node,String key) {
-		if(node.findValue(key)!=null) {
+	public static String findValueFromNode(JsonNode node, String key) {
+		if (node.findValue(key) != null) {
 			return node.findValue(key).textValue();
+		}
+		return "";
+	}
+
+	public static String findKeyValueFromNode(String node, String key) {
+		JsonNode jsonNode = null;
+		try {
+			jsonNode = mapper.readTree(node);
+			if (jsonNode.findValue(key) != null) {
+				return jsonNode.findValue(key).textValue();
+			}
+		} catch (JsonProcessingException e) {
+			logger.error("JsonProcessingException inside findKeyValueFromNode");
 		}
 		return "";
 	}
